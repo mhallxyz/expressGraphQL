@@ -5,16 +5,35 @@ var { buildSchema } = require("graphql");
 let testNumber = Math.random();
 
 const TestObject = {
-  hello: () => "Hello world!",
-  test: () => "This is a test",
-  egg: () => testNumber
+  id: 1,
+  hello: "Hello world!",
+  test: "This is a test",
+  egg: testNumber
+};
+const TestObject1 = {
+  id: 2,
+  hello: "Hello world!dfsgdsfg",
+  test: "This is a test",
+  egg: testNumber
+};
+const TestObject2 = {
+  id: 3,
+  hello: "Hello world!aaaaaaaaaaaaa",
+  test: "test",
+  egg: testNumber
+};
+const TestObject3 = {
+  id: 4,
+  hello: "Hello world!bbbbbbbbb",
+  test: "test4",
+  egg: testNumber
 };
 
 var root = {
   hello: () => "Hello world!",
   test: () => "This is a test",
   egg: () => testNumber,
-  testArray: () => [TestObject, TestObject, TestObject, TestObject, TestObject]
+  testArray: () => [TestObject, TestObject1, TestObject2, TestObject3]
 };
 
 var schema = buildSchema(`
@@ -25,6 +44,7 @@ var schema = buildSchema(`
     testArray: [TestObject]
   },
   type TestObject {
+    id: Int,
     hello: String,
     test: String,
     egg: Float
