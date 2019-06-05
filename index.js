@@ -1,24 +1,20 @@
-var express = require('express');
-var graphqlHTTP = require('express-graphql');
-var { buildSchema } = require('graphql');
-
-
+var express = require("express");
+var graphqlHTTP = require("express-graphql");
+var { buildSchema } = require("graphql");
 
 let testNumber = Math.random();
 
 const TestObject = {
-  hello: () =>  'Hello world!',
-  test: () =>  'This is a test',
-  egg: () => testNumber,
-}
-
-
+  hello: () => "Hello world!",
+  test: () => "This is a test",
+  egg: () => testNumber
+};
 
 var root = {
-  hello: () => 'Hello world!',
-  test: () => 'This is a test',
+  hello: () => "Hello world!",
+  test: () => "This is a test",
   egg: () => testNumber,
-  testArray: () => [TestObject]
+  testArray: () => [TestObject, TestObject, TestObject, TestObject, TestObject]
 };
 
 var schema = buildSchema(`
@@ -37,11 +33,11 @@ var schema = buildSchema(`
 
 var app = express();
 app.use(
-  '/graphql',
+  "/graphql",
   graphqlHTTP({
     schema: schema,
     rootValue: root,
     graphiql: true
   })
 );
-app.listen(4000, () => console.log('Now browse to localhost:4000/graphql'));
+app.listen(4000, () => console.log("Now browse to localhost:4000/graphql"));
