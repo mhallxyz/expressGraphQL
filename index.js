@@ -33,7 +33,14 @@ var root = {
   hello: () => "Hello world!",
   test: () => "This is a test",
   egg: () => testNumber,
-  testArray: () => [TestObject, TestObject1, TestObject2, TestObject3]
+  testArray: args => {
+    if (args.test) {
+      return [TestObject, TestObject1, TestObject2, TestObject3].filter(
+        item => args.test === item.test
+      );
+    }
+    return [TestObject, TestObject1, TestObject2, TestObject3];
+  }
 };
 
 var schema = buildSchema(`
@@ -41,7 +48,7 @@ var schema = buildSchema(`
     hello: String,
     test: String,
     egg: Float,
-    testArray: [TestObject]
+    testArray(test: String): [TestObject]
   },
   type TestObject {
     id: Int,
